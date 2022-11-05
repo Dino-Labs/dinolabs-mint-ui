@@ -11,4 +11,10 @@ export default {
 
 const Template: Story<MintingProps> = (args) => <Minting {...args} />
 
-export const Primary = Template.bind({ collectionId: '', environment: 'test', promoCodeMode: 'optional', maxAssetsPerOrder: 5 })
+export const Primary = Template.bind({
+	collectionId: '',
+	environment: 'test',
+	promoCodeMode: 'optional',
+	maxAssetsPerOrder: 5,
+	tokenName: 'MyRandom NFT'
+})

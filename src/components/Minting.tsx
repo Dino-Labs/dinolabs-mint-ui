@@ -7,12 +7,12 @@ import { OrderRejected } from './stages/OrderRejected'
 import { PlaceOrder } from './stages/PlaceOrder'
 import DinoLabsLogo from './Logo.svg'
 
-const MintingOrder = ({ promoCodeMode, maxAssetsPerOrder }: { promoCodeMode?: PromoCodeMode, maxAssetsPerOrder?: number }) => {
+const MintingOrder = ({ promoCodeMode, maxAssetsPerOrder, tokenName }: { promoCodeMode?: PromoCodeMode, maxAssetsPerOrder?: number, tokenName: string }) => {
     const { orderStage } = useOrder()
     switch (orderStage) {
-        case OrderStage.New: return <PlaceOrder promoCodeMode={promoCodeMode} maxAssetsPerOrder={maxAssetsPerOrder} />
-        case OrderStage.Placed: return <AwaitingOrderApproval />
-        case OrderStage.Approved: return <OrderApproved />
+        case OrderStage.New: return <PlaceOrder promoCodeMode={promoCodeMode} maxAssetsPerOrder={maxAssetsPerOrder} tokenName={tokenName} />
+        case OrderStage.Placed: return <AwaitingOrderApproval tokenName={tokenName} />
+        case OrderStage.Approved: return <OrderApproved tokenName={tokenName} />
         case OrderStage.Rejected: return <OrderRejected />
         default: throw Error('Unknown state')
     }

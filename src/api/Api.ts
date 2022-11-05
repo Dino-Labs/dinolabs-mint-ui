@@ -11,7 +11,7 @@ export type PlaceOrderResponse = {
 }
 
 export const placeOrder = (env: Environment, collectionId: string, couponCode: string, quantity: number): Promise<PlaceOrderResponse> => {
-    return fetch(`${apiUrl}/api/reservations`, {
+    return fetch(`${getApiUrl(env)}/api/reservations`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -50,13 +50,13 @@ type PaymentState = {
 }
 
 export const acceptPrice = (env: Environment, orderId: string): Promise<any> => {
-    return fetch(`${apiUrl}/api/payments/${orderId}`, {
+    return fetch(`${getApiUrl(env)}/api/payments/${orderId}`, {
         method: 'POST'
     }).then(response => response.json())
 }
 
 export const getPaymentState = (env: Environment, orderId: string): Promise<PaymentState | undefined> => {
-    return fetch(`${apiUrl}/api/payments/${orderId}`, {
+    return fetch(`${getApiUrl(env)}/api/payments/${orderId}`, {
         method: 'GET',
     }).then<PaymentState | undefined>(response => {
         if (response.status === 404) {

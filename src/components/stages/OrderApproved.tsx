@@ -5,13 +5,13 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { ReactComponent as CopyIcon } from './copy.svg';
 import { ReactComponent as Spinner } from './Spinner.svg'
 
-export const OrderApproved = () => {
+export const OrderApproved = ({ tokenName }: { tokenName: string }) => {
     const { paymentState } = useOrder()
     switch (paymentState) {
         case PaymentState.AwaitingPayment: return <AwaitingPayment />;
         case PaymentState.Quoted: return <PaymentQuoted />;
         case PaymentState.PriceAccepted: return <AwaitingPayment />;
-        case PaymentState.Confirmed: return <PaymentConfirmed />;
+        case PaymentState.Confirmed: return <PaymentConfirmed tokenName={tokenName} />;
         case PaymentState.Expired: return <OrderExpired />;
     }
 }
@@ -108,13 +108,13 @@ export const AwaitingPayment = () => {
     );
 }
 
-export const PaymentConfirmed = () => {
+export const PaymentConfirmed = ({ tokenName }: { tokenName: string }) => {
     const { newOrder } = useOrder()
     return (
         <React.Fragment>
             <h1>We received your payment.</h1>
             <p>
-                In a few minutes you should be able to see your new DinoSavior in your wallet.
+                In a few minutes you should be able to see your new {tokenName} in your wallet.
                 Feel free to share it on our <a href="https://discord.gg/Mgvphj5JpW" target="_blank" aria-label="discord">Discord channel</a> and <a href="https://twitter.com/cryptodino_io" target="_blank" aria-label="twitter">Twitter</a>.
             </p>
             <div style={{ textAlign: 'center', marginTop: 50 }}>

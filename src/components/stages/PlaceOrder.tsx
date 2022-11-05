@@ -3,7 +3,7 @@ import { useOrder } from '../../api/OrderContext';
 import { PromoCodeMode } from '../Minting.types';
 import Spinner from './Spinner.svg'
 
-export const PlaceOrder = ({ promoCodeMode, maxAssetsPerOrder }: { promoCodeMode?: PromoCodeMode, maxAssetsPerOrder?: number }) => {
+export const PlaceOrder = ({ promoCodeMode, maxAssetsPerOrder, tokenName }: { promoCodeMode?: PromoCodeMode, maxAssetsPerOrder?: number, tokenName: string }) => {
     const { placeOrder } = useOrder();
     const [touched, setTouched] = React.useState(false);
     const [disabled, setDisabled] = React.useState(false);
@@ -43,7 +43,7 @@ export const PlaceOrder = ({ promoCodeMode, maxAssetsPerOrder }: { promoCodeMode
     return (
         <React.Fragment>
             <h1>Welcome Crypto enthusiasts!</h1>
-            <p>You're almost a step away from getting one of the amazing DinoSavior NFT collectables.</p>
+            <p>You're almost a step away from getting one of the amazing {tokenName}.</p>
             {(maxAssetsPerOrder && maxAssetsPerOrder > 1) ? (
                 <div style={{ textAlign: 'center' }}>
                     <p>Quantity</p>

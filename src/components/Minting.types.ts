@@ -6,4 +6,5 @@ export interface MintingProps {
     promoCodeMode?: PromoCodeMode,
     maxAssetsPerOrder?: number,
     environment: Environment,
+    tokenName: string,
 }
