@@ -3,8 +3,9 @@ export type Environment = 'production' | 'test'
 
 export interface MintingProps {
     collectionId: string,
+    tokenName: string,
+    environment?: Environment,
     promoCodeMode?: PromoCodeMode,
     maxAssetsPerOrder?: number,
-    environment: Environment,
-    tokenName: string,
+    onPayClick?: (address: string, amount: string) => Promise<void>
 }

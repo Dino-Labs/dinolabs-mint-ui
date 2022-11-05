@@ -5,12 +5,12 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import CopyIcon from './copy.svg';
 import Spinner from './Spinner.svg'
 
-export const OrderApproved = ({ tokenName }: { tokenName: string }) => {
+export const OrderApproved = ({ tokenName, onPayClick }: { tokenName: string, onPayClick?: (address: string, amount: string) => Promise<void> }) => {
     const { paymentState } = useOrder()
     switch (paymentState) {
         case PaymentState.AwaitingPayment: return <AwaitingPayment />;
         case PaymentState.Quoted: return <PaymentQuoted />;
-        case PaymentState.PriceAccepted: return <AwaitingPayment />;
+        case PaymentState.PriceAccepted: return <AwaitingPayment onPayClick={onPayClick} />;
         case PaymentState.Confirmed: return <PaymentConfirmed tokenName={tokenName} />;
         case PaymentState.Expired: return <OrderExpired />;
     }
@@ -53,7 +53,7 @@ export const PaymentQuoted = () => {
     )
 }
 
-export const AwaitingPayment = () => {
+export const AwaitingPayment = ({ onPayClick }: { onPayClick?: (address: string, amount: string) => Promise<void> }) => {
     const { address, amount } = useOrder()
     return (
         <React.Fragment>
@@ -94,6 +94,11 @@ export const AwaitingPayment = () => {
                                 </span>
                             </div>
                         </div>
+                    {onPayClick && (
+                        <div>
+                            <button onClick={() => onPayClick(address, amount)}>Pay</button>
+                        </div>
+                    )}
                     <div className="warning">
                         <h4>Important</h4>
                         <p>

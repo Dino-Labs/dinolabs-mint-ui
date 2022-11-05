@@ -3,7 +3,9 @@ import { useOrder } from '../../api/OrderContext';
 import { PromoCodeMode } from '../Minting.types';
 import Spinner from './Spinner.svg'
 
-export const PlaceOrder = ({ promoCodeMode, maxAssetsPerOrder, tokenName }: { promoCodeMode?: PromoCodeMode, maxAssetsPerOrder?: number, tokenName: string }) => {
+export type PlaceOrderProps = { promoCodeMode?: PromoCodeMode, maxAssetsPerOrder?: number, tokenName: string }
+
+export const PlaceOrder = ({ promoCodeMode, maxAssetsPerOrder, tokenName }: PlaceOrderProps) => {
     const { placeOrder } = useOrder();
     const [touched, setTouched] = React.useState(false);
     const [disabled, setDisabled] = React.useState(false);
