@@ -1,10 +1,32 @@
-import { MintingProps } from "./Minting.types";
+import { MintingProps, PromoCodeMode } from "./Minting.types";
 import React, { FC } from 'react'
+import { OrderStage, useOrder, OrderProvider } from "../api/OrderContext";
+import { AwaitingOrderApproval } from './stages/AwaitingOrderApproval'
+import { OrderApproved } from './stages/OrderApproved'
+import { OrderRejected } from './stages/OrderRejected'
+import { PlaceOrder } from './stages/PlaceOrder'
+import DinoLabsLogo from './Logo.svg'
 
-export const Minting: FC<MintingProps> = ({ collectionId }) => {
+const MintingOrder = ({ promoCodeMode, maxAssetsPerOrder }: { promoCodeMode?: PromoCodeMode, maxAssetsPerOrder?: number }) => {
+    const { orderStage } = useOrder()
+    switch (orderStage) {
+        case OrderStage.New: return <PlaceOrder promoCodeMode={promoCodeMode} maxAssetsPerOrder={maxAssetsPerOrder} />
+        case OrderStage.Placed: return <AwaitingOrderApproval />
+        case OrderStage.Approved: return <OrderApproved />
+        case OrderStage.Rejected: return <OrderRejected />
+        default: throw Error('Unknown state')
+    }
+}
+
+export const Minting: FC<MintingProps> = ({ collectionId, environment, ...props }) => {
     return (
         <div>
-            test
+            <OrderProvider collectionId={collectionId} environment={environment}>
+                <MintingOrder {...props} />
+            </OrderProvider>
+            <div>
+                Minting powered by <a href="https://www.cryptodino.io/dinolabs"><DinoLabsLogo height="30" width="60" viewBox="0 0 800 400" /></a>
+            </div>
         </div>
     )
 }

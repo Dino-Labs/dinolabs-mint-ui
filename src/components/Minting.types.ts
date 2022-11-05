@@ -1,3 +1,9 @@
+export type PromoCodeMode = 'optional' | 'required'
+export type Environment = 'production' | 'test'
+
 export interface MintingProps {
-    collectionId: string
+    collectionId: string,
+    promoCodeMode?: PromoCodeMode,
+    maxAssetsPerOrder?: number,
+    environment: Environment,
 }
