@@ -2,8 +2,8 @@ import React from 'react';
 import { PaymentState, useOrder } from '../../api/OrderContext';
 import { OrderExpired } from './OrderExpired';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { ReactComponent as CopyIcon } from './copy.svg';
-import { ReactComponent as Spinner } from './Spinner.svg'
+import CopyIcon from './copy.svg';
+import Spinner from './Spinner.svg'
 
 export const OrderApproved = ({ tokenName }: { tokenName: string }) => {
     const { paymentState } = useOrder()
